@@ -62,6 +62,6 @@ Next we need 34 modules for 16-bit addition modulo 2^16 for the IDEA algorithm .
 • Create a module  Adder(Verilog Module) in the editor of the IDEA 1 project
 • Describe the input and output of the adder module and assign the operation  
 • After saving the file, switch the view to Simulation in the left upper corner and start the process Behavioral Check Syntax on the left side. Correct any mistakes and check the syntax again until no further errors are displayed.
-# Modulo-multiplier
+# Modulo-multiplier module
 Used 34 times, the modulo multiplier is the most complex module in the IDEA algorithm. Two 16-bit input vectors are multiplied, where the input of 0 is substituted by 2^16. The 33 bit (33 bits needed because of 2^16) wide result is taken modulo 2^16 + 1 and cut down to use only the lowest 16 bit as output.  
 A separate implementation of the multiplication and the modulo operation would lead to two very complex and therefore expensive modules. In addition, these would have to be connected with a 33 bit wide datapath. A better solution is the low-high algorithm. Based on a single, modified multiplier the multiplication and the modulo operation can be performed in one module.  
