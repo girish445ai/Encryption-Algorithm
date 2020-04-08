@@ -1,0 +1,18 @@
+module multiplier(a,b,y);
+input [15:0]a,b;
+output reg [15:0]y;
+reg [31:0]h;
+reg [15:0]l,g;
+
+always@(a,b)
+begin
+h=a*b;
+ l=h[15:0];
+ g=h[31:16];
+
+if(l>g)
+   y=l-g;
+else
+   y=(l-g)+65535+1;
+	end
+endmodule

@@ -1,0 +1,10 @@
+module fa(a,b,cin,s,ca);
+input a,b,cin;
+output s,ca;
+wire p,q,r;
+xor u1(p,a,b);
+and u2(q,a,b);
+and u3(r,p,cin);
+or u4(ca,q,r);
+xor u5(s,p,cin);
+endmodule

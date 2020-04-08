@@ -1,0 +1,19 @@
+module idea_a(x1,x2,x3,x4,z1,z2,z3,z4,z5,z6,y1,y2,y3,y4);
+input [15:0]x1,x2,x3,x4,z1,z2,z3,z4,z5,z6;
+output [15:0]y1,y2,y3,y4;
+wire [15:0]t1,t2,t3,t4,t5,t6,t7,t8,t9,t10;
+multiplier u1(z1,x1,t1);
+ripple_s u2(z2,x2,t2);
+ripple_s u3(z3,x3,t3);
+multiplier u4(z4,x4,t4);
+exor u5(t1,t3,t5);
+exor u6(t2,t4,t6);
+multiplier u7(t5,z5,t7);
+ripple_s u8(t6,t7,t8);
+multiplier u9(z6,t8,t10);
+ripple_s u10(t7,t10,t9);
+exor u11(t1,t10,y1);
+exor u12(t3,t10,y2);
+exor u13(t2,t9,y3);
+exor u14(t9,t4,y4);
+endmodule
