@@ -48,4 +48,20 @@ In the output transformation  we need the following modules:
 • Adding 16 bit numbers modulo 2^16 
 • Multiplying 16 bit numbers modulo 2^16 + 1, where the input 0 is substituted by 2^16.
  The key generator uses a 128 bit input word to generate 52 partial keys of 16 bit each. For the encryption the 128 bit input is split into 8 blocks of 16 bit each, which are used as the 8 first partial keys .
-
+![123](https://user-images.githubusercontent.com/63008519/78744412-2104ed80-797f-11ea-8e03-46812670e3d5.png)
+# Xilinx procedure
+# Xor module
+The IDEA algorithm uses 48 XOR modules(6 FOR EACH ROUND) for a 16-bit wide word (input and output). Create a XOR module with two input vectors and one output vector of the vector type for 16 bit width and a suitable testbench by following these steps:
+• Create a module EXOR (Verilog Module) in the editor of the IDEA 1 project
+ • Describe the input and output of the EXOR module and assign the operation  
+• After saving the file, switch the view to Simulation in the left upper corner and start the process Behavioral Check Syntax on the left side. Correct any mistakes and check the syntax again until no further errors are displayed. After creating the XOR module, we need to implement a testbench which can apply different input patterns to the module. By comparing the output values of the XOR module to the expected values we can confirm the functional correctness function of the module.
+The testbench is implemented as follows:
+• Create a module exor_tb(Verilog Test Bench).  Now apply various test signals to the inputs of the module . Please note that we do not have any clock in the direct implementation. After the syntax errors have been checked, start the  Simulator . 
+# Adder module
+Next we need 34 modules for 16-bit addition modulo 2^16 for the IDEA algorithm . The task is to create an adder module providing these features.Here we use ripple carry adder using full adder for faster operation.
+• Create a module  Adder(Verilog Module) in the editor of the IDEA 1 project
+• Describe the input and output of the adder module and assign the operation  
+• After saving the file, switch the view to Simulation in the left upper corner and start the process Behavioral Check Syntax on the left side. Correct any mistakes and check the syntax again until no further errors are displayed.
+# Modulo-multiplier
+Used 34 times, the modulo multiplier is the most complex module in the IDEA algorithm. Two 16-bit input vectors are multiplied, where the input of 0 is substituted by 2^16. The 33 bit (33 bits needed because of 2^16) wide result is taken modulo 2^16 + 1 and cut down to use only the lowest 16 bit as output.
+A separate implementation of the multiplication and the modulo operation would lead to two very complex and therefore expensive modules. In addition, these would have to be connected with a 33 bit wide datapath. A better solution is the low-high algorithm. Based on a single, modified multiplier the multiplication and the modulo operation can be performed in one module.
